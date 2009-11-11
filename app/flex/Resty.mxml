@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:Application xmlns:mx="http://www.adobe.com/2006/mxml"
-  xmlns:generated="resty.components.generated.*"
+  xmlns:generated="resty.views.generated.*"
   paddingBottom="8" paddingLeft="8" paddingRight="8" paddingTop="8"
   layout="horizontal" styleName="plain" initialize="init()">
   <mx:Script>
@@ -16,5 +16,6 @@
   <mx:LinkBar dataProvider="{mainViewStack}" direction="vertical" borderStyle="solid" backgroundColor="#EEEEEE"/>
   <mx:ViewStack id="mainViewStack" width="100%" height="100%">
     <!-- For a simple demo, put all the components here. -->
+    <generated:MonkeyBox/>
   </mx:ViewStack>
 </mx:Application>

@@ -1,0 +1,21 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+monkey_one:
+  id: <%= Fixtures.identify(:monkey_one) %>
+  name: Monkey1NameText
+  age: 1
+
+monkey_two:
+  id: <%= Fixtures.identify(:monkey_two) %>
+  name: Monkey2NameText
+  age: 1
+
+monkey_three:
+  id: <%= Fixtures.identify(:monkey_three) %>
+  name: Monkey3NameText
+  age: 1
+
+monkey_four:
+  id: <%= Fixtures.identify(:monkey_four) %>
+  name: Monkey4NameText
+  age: 1

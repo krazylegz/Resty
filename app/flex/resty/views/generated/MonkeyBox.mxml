@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:HBox xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" label="Monkey"
+  xmlns:rx="org.restfulx.components.rx.*">
+  <mx:Script><![CDATA[
+    import org.restfulx.Rx;
+    import org.restfulx.utils.RxUtils;
+    import resty.models.Monkey;
+
+    [Bindable]
+    private var monkey:Monkey = new Monkey();
+
+    private function newMonkey():void {
+      monkey = new Monkey();
+      monkeysList.selectedIndex = -1;
+    }
+
+    private function saveMonkey():void {
+      updateModelProperties();
+      if (monkey.id) {
+        monkey.update({onSuccess: onMonkeyUpdate});
+      } else {
+        monkey.create({onSuccess: onMonkeyCreate});
+      }
+    }
+  
+    private function updateModelProperties():void {
+      monkey.name = nameTextArea.text;
+      monkey.age = int(ageTextInput.text);
+  
+    }
+   
+    private function destroyMonkey():void {
+      monkey.destroy({onSuccess: onMonkeyDestroy});
+    }
+    
+    private function onMonkeySelect():void {
+      monkey = RxUtils.clone(monkeysList.selectedItem) as Monkey;
+    }
+    
+    private function onMonkeyCreate(result:Monkey):void {
+      monkey = new Monkey;
+    }
+    
+    private function onMonkeyUpdate(result:Monkey):void {
+      monkeysList.selectedItem = result;
+      onMonkeySelect();
+    }
+    
+    private function onMonkeyDestroy(result:Monkey):void {
+      onMonkeyCreate(result);
+    }    
+  ]]></mx:Script>
+  <mx:Panel id="monkeysPanel"
+    title="Monkeys" cornerRadius="0" dropShadowEnabled="false" borderStyle="solid"
+    borderThickness="1" backgroundColor="#EEEEEE" width="25%" height="100%">
+    <mx:List id="monkeysList"
+      width="100%" height="100%"
+      dataProvider="{Rx.models.index(Monkey)}"
+      change="onMonkeySelect()"/>
+    <mx:ControlBar width="100%">
+      <mx:Button label="New Monkey" width="100%" height="30"
+        click="newMonkey()"/>
+    </mx:ControlBar>
+  </mx:Panel>
+  <mx:Panel title="Edit Monkey" cornerRadius="0" dropShadowEnabled="false" borderStyle="solid"
+    borderThickness="1" backgroundColor="#EEEEEE" width="75%" height="100%">
+    <mx:Form width="100%" height="100%">
+      <mx:FormItem label="Name" width="100%">
+        <mx:TextArea id="nameTextArea" width="100%" height="200" text="{monkey.name}"/>
+      </mx:FormItem>
+      <mx:FormItem label="Age" width="100%">
+        <mx:TextInput id="ageTextInput" width="100%" text="{monkey.age}"/>
+      </mx:FormItem>
+    </mx:Form>
+    <mx:ControlBar width="100%">
+      <mx:Button label="Save Monkey" width="50%" height="30"
+        click="saveMonkey()"/>
+      <mx:Button label="Delete Monkey" width="50%" height="30"
+        enabled="{RxUtils.canDeleteModel(monkey)}"
+        click="destroyMonkey()"/>
+    </mx:ControlBar>
+  </mx:Panel>
+</mx:HBox>
