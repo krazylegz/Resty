@@ -1,8 +1,5 @@
 ActionController::Routing::Routes.draw do |map|
   map.resources :monkeys
-
-  map.resources :monkeys
-
   
   # Map application root to default RestfulX controller
   map.root :controller => "flex"
